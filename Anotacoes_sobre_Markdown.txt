@@ -1,0 +1,111 @@
+Itálico:
+
+    *texto*
+    _texto_
+
+Negrito:
+
+    **texto**
+
+Cabeçalhos:
+
+    Número de # -> nº do Cabeçalho
+    Ex:
+
+    # Header 1
+    ### Header 3
+
+Links:
+
+    [Texto que aparece](link)
+
+    Exemplo:
+    Clique [aqui](www.google.pt) para ir para o google
+
+Links com referências:
+
+    Here's [a link to something else][another place].
+    Here's [yet another link][another-link].
+    And now back to [the first link][another place].
+
+    [another place]: www.github.com
+    [another-link]: www.google.com
+
+Link com imagem:
+
+    É igual aos links, porém colocamos "!" antes
+
+    Exemplo:
+    ![A pretty tiger](https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg)
+
+    Exemplo 2:
+
+    ![Black cat][Black]
+    ![Orange cat][Orange]
+
+    [Black]: https://upload.wikimedia.org/wikipedia/commons/a/a3/81_INF_DIV_SSI.jpg
+    [Orange]: http://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/256/22221-cat-icon.png
+
+Trechos ou citações:
+
+    > texto
+
+    >texto1
+    >
+    >texto 2
+
+    Nota: Tudo que está em ">" será a citação
+
+Listas Desordenadas:
+
+    - item 1
+    - item 2
+    - item 3
+
+Listas Ordenadas:
+
+    1. item 1
+    2. item 2
+    3. item 3
+
+Listas dentro de Listas:
+
+    * item 1
+     * subitem 1.1
+     * subitem 1.2
+    * item 2
+     * subitem 2.1
+     * subitem 2.2
+
+Listas com resumos dentro:
+
+    Após um item, colocar um espaço e escrever o texto.
+    Se tiver mais que 1 parágrafo, separar por linha
+
+    Ex:
+
+    1. Item 1
+
+     Paragrafo 1
+
+    2. Item 2
+
+     Paragrafo 2.1
+
+     Paragrafo 2.2
+
+Parágrafos:
+
+    Após um texto, colocar 2 espaços
+    Usar isto em vez de separar com 1 linha em branco
+
+    Ex:
+
+    Texto1**
+    Texto2**
+    Texto3
+
+    Nota: '*' neste contexto significa 'espaço'
+
+
+Bibliografia : https://www.markdowntutorial.com/
