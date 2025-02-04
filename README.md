@@ -2,7 +2,11 @@
 
  **UC :** Processamento de Linguagens  
  **Curso :** Licenciatura de Engenharia Informática 3º ano 2º semestre  
- **Aluno :** André Filipe Barros Campos **a104618**  
+ **Autor :** 
+ - **Nome:** André Filipe Barros Campos  
+ - **Número de aluno:** a104618  
+ - **Email Institucional:** a104618@alunos.uminho.pt  
+ - **Email Pessoal:** andrefbc2004@gmail.com  
  ![Imagem](image.png)
 
 ## Resumo
