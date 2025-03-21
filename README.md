@@ -15,4 +15,12 @@
  Este repositório tem o propósito de ser o repositório do aluno _"André Filipe Barros Campos"_.  
  Repositório este onde terá os TPCs deste aluno em relação à UC **Processamento de Linguagens 2024/2025**
 
+## Lista de TPCs
+
+- [**TPC1** _(2025-02-11)_](TPC1/)
+- [**TPC2** _(2025-02-19)_](TPC2/)
+- [**TPC3** _(2025-02-26)_](TPC3/)
+- [**TPC4** _(2025-03-05)_](TPC4/)
+- [**TPC5** _(2025-03-11)_](TPC5/)
+- [**TPC6** _(2025-03-20)_](TPC6/)
 

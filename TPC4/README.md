@@ -1,10 +1,12 @@
-# TPC4 - a104618 - Processamento de Linguagens 2025
+# TPC4 - a104618 - Processamento de Linguagens 2024/2025
 
 **Titulo :** TPC4 da UC Processamento de Linguagens  
 **Data :** 2025-03-05  
 **Autor :**  
 - **Nome :** André Filipe Barros Campos  
 - **ID :** a104618  
+
+![Fotografia do Aluno](../image.png)
 
 ## Resumo
 

@@ -1,4 +1,4 @@
-# TPC6 - a104618 - Processamento de Linguagens 2025
+# TPC6 - a104618 - Processamento de Linguagens 2024/2025
 
 **Titulo :** TPC6 da UC Processamento de Linguagens  
 **Data :** 2025-03-20  
@@ -6,54 +6,80 @@
 - **Nome :** André Filipe Barros Campos  
 - **ID :** a104618  
 
-[Fotografia do Aluno](../image.png)
+![Fotografia do Aluno](../image.png)
 
 ## Resumo
 
-1. Devemos desenvolver um programa que simule uma máquina de vending.  
-2. A máquina tem um **stock de produtos** que deverá persistir em ficheiro JSON chamado [stock.json](stock.json), onde este ficheiro deverá ser lido no arranque do programa e deverá ser atualizado quando o programa termina.  
-3. Essa máquina deverá ter comandos que permitem manipular a máquina de vending, como por exemplo:
-    - Listar
-    - Selecionar produto
-    - Sair
-    - Adicionar Moedas
+1. Devemos desenvolver um programa que calcule o valor de uma expressão algébrica composta por **números** e pelos operadores matemáticos binários:
+    - **soma :** +
+    - **subtração :** -
+    - **multiplicação :** *
+    - **divisão :** /
+2. Este programa deverá respeitar as prioridades das operações _(isto é, multiplicações e divisões antes das somas e subtrações)_.
+3. A resolução deste TPC deverá usar análise sintática _(usando ply.lex)_ e análise sintática recorrendo à **recursividade descendente**.
 
 ## Resolução
 
-1. Para resolucionar este TPC, criei o programa **[main.py](main.py)**. Ao iniciar o programa, uso uma função para obter, numa lista, o conteúdo do ficheiro JSON da máquina de venda chamada **[stock.json](stock.json)** para que consiga obter o stock do sistema que foi guardado em ficheiro. Caso este ficheiro não exista, o programa cria automáticamente esse ficheiro e adiciona um produto _"default"_ a esse ficheiro.  
-2. Crio o objeto **obj**, que terá as propriedades da máquina de vending, como o **stock** e o **saldo** atual.  
-3. Enquanto o programa está a correr, ele espera por _comandos_ dados pelos utilizadores. Após receber esses comandos, o programa usa o **ply.lexer** para _tokenizar_ esses comandos para que seja mais simples executar as _queries_ ditas por eles.  
-4. Após tokenizar, verificamos qual o tipo de tokens e, dependendo do seu tipo, tratamo-os de formas diferentes:
-    1. **SAIR :** Termina a leitura de comandos, determina quantas moedas a maquina deve dar ao utilizador (no caso, o seu troco) e apresenta essa quantidade no terminal  
-    2. **LISTAR :** Lista todos os produtos existentes no stock  
-    3. **SALDO :** Indica ao utilizador qual o saldo atual  
-    4. **MOEDA :** Adiciona a quantidade de moedas, dadas pelos argumentos do token, ao saldo atual do sistema  
-    5. **ADD :** Adicionar um produto novo ao stock, levando em consideração os argumentos deste token, como o código do produto, o seu nome, a sua quantidade e preço  
-    6. **REMOVE :** Remove um produto do stock, usando o argumento deste token para descobrir qual produto deve ser removido  
-    7. **REFILL :** Adiciona uma quantidade de produtos a um produto do stock especificado pelos argumentos deste token, respetivamente o código do produto e a quantidade a adicionar  
-    8. **SELECIONAR :** O sistema obtém o produto indicado pelo argumento do token, verifica se ele existe, verifica se há quantidade dele no stock e verifica se o utilizador pode comprá-lo. Se:
-        1. **Produto não existir :** Indica ao utilizador que produto não existe
-        2. **Produto vazio :** Indica ao utilizador que não existem produtos daquele tipo  
-        3. **Saldo Insuficiente :** Indica ao utilizador que não tem saldo suficiente para efetuar a compra, mostrando qual o preço do produto selecionado  
-        4. **Saldo Suficiente :** Subtraimos o valor do produto ao saldo, indicamos que a quantidade desse produto do stock deve diminuir 1 unidade e indicamos ao utilizador que a compra foi efetuada  
-5. Após a leitura de _comandos_ terminar, usamos o stock, _carregado em memória_, para atualizarmos o ficheiro JSON do stock, para que ele seja guardado de forma persistente.
+1. Para resolucionar este TPC, separei a lógica dele em quatro ficheiros:
+    - **lexico.py :** contém toda a lógica da análise léxica
+    - **sintatico.py :** contém toda a lógica da análise sintática
+    - **nodo.py :** usada para representar a árvore de derivação da análise sintática
+    - **main.py :** programa onde é resolvido este TPC
+2. Para tokenizar a expressão algébrica, recorri ao ficheiro **[lexico.py](lexico.py)** para que reconheça os seguintes tokens:
+    - **NUMERO :** representa um número
+    - **SOMSUB :** representa um operador de soma ou subtração
+    - **MULDIV :** representa um operador de multiplicação ou divisão
+3. Para construir a árvore de derivação, criei a seguinte gramática:
+```
+Regra-1 => INIT = ExpMULDIVInit ExpSOMSUB
+Regra-2 => ExpSOMSUB = SOMSUB ExpMULDIVInit ExpSOMSUB
+Regra-3 =>           = ε
+Regra-4 => ExpMULDIVInit = NUMERO ExpMULDIV
+Regra-5 => ExpMULDIV = MULDIV NUMERO ExpMULDIV
+Regra-6 =>           = ε
+```
 
-## Como usar
+4. A explicação destas regras são:
+    1. **INIT :** Inicio da expressão algébrica onde quero que ela inicie por um número ou por uma expressão algébrica envolvendo multiplicações e divisões. A chamada recursiva à regra ExpSOMSUB garante que as expressões de soma e subtração são consideradas,
+    2. **ExpSOMSUB :** Reconhece expressões algébricas envolvendo somas e subtrações. Elas podem não existir _(Regra-3)_ ou se existirem _(Regra-2)_, têm que ter um operador de soma/subtração, seguido de um número/expressão algébrica de multiplicação ou divisão. Esta regra é recursiva, logo considera multiplas expressões algébricas de soma ou subtração
+    1. **ExpMULDIVInit :** Inicio da expressão algébrica envolvendo multiplicações/divisões onde quero que ela inicie um número. A chamada recursiva à regra ExpMULDIV garante que as expressões de multiplicação e divisão são consideradas,
+    2. **ExpMULDIV :** Reconhece expressões algébricas envolvendo multiplicações e divisões. Elas podem não existir _(Regra-6)_ ou se existirem, têm que ter um operador de multiplicação/divisão, seguido de um número. Esta regra é recursiva, logo considera multiplas expressões algébricas de multiplicação ou divisão
+5. O ficheiro **[sintatico.py](sintatico.py)** vai usar o ficheiro **[nodo.py](nodo.py)** e, usando as gramática apresentada, irá construir a árvore de derivação.
+6. Eu gostaria que o calculo da expressão algébrica fosse feita com apenas uma travessia à árvore. Como esta travessia começaria nas folhas da árvore e o resultado delas ia subindo até à raiz, precisei que todas as operações de multiplicação e divisão estivessem abaixo das operações de soma e subtração, para que a prioridade das operações seja respeitada.
+7. A forma como pensei na gramática seria considerar uma gramática de apenas somas e subtrações. Desta forma, a árvore gerada teria os operadores perto da raiz e os elementos entre os operadores _(por exemplo, números)_, estariam nas folhas.
+8. Se substituísse os elementos por operações de multiplicação e divisão, garantia que estas eram efetuadas antes das operações de soma e subtração (algo desejado). Por isso, tinha que garantir que estes elementos seriam operações de multiplicação e divisão _(para casos de 1+A onde A=2*3)_ ou números _(para casos de 1+A onde A=1)_. Por isso que nas regras 2 e 3, as expressões algébricas envolvendo operações de soma e subtração não são aplicadas diretamente a números, e sim a estes elementos que me refiro.
+9. Para calcular o valor da expressão usando a árvore de derivação, usei um algoritmo recursivo que, dependendo do tipo de nodo, iria retornar o número representado ou efetuar a operação nos seus nodos filhos e retornar o resultado para o seu nodo-pai. O resultado retornado pela raíz será o resultado da expressão algébrica.
 
-- **Sair do programa :** SAIR  
-- **Listar produtos :** LISTAR  
-- **Ver saldo :** SALDO  
-- **Adicionar lista de moedas à máquina :**  
-    - MOEDA [2e | 1e | 50c | 20c | 10c | 5c | 2c | 1c]  
-    - MOEDA \<LISTA DE MOEDAS SEPARADAS POR VIRGULA\> .  
-- **Adicionar produto ao sistema :** ADD \<CÓDIGO\> \<NOME\> \<QUANTIDADE\> \<PREÇO\>  
-- **Remover produto do sistema :** REMOVE \<CÓDIGO DO PRODUTO\>  
-- **Adicionar quantidade a um produto :** REFILL \<CÓDIGO DO PRODUTO\> \<QUANTIDADE\>  
-- **Selecionar produto com a intenção de o comprar :** SELECIONAR \<CÓDIGO DO PRODUTO\>
+Exemplo:
+```
+
+    +
+   / \
+  1   *
+     / \
+    2   3
+
+```
+_Iteração 1_
+```
+
+    +
+   / \
+  1   6
+
+```
+_Iteração 2_
+```
+
+    7
+
+```
+_Iteração 3_
+
+10. Por fim, usei o programa **[main.py](main.py)** para ler as expressões algébricas do terminal, tokeniza-las, transformar as equações em árvores de derivação e apresentar o resultado das equações ao utilizador após efetuar a travessia destas árvores.
 
 ## Lista de Resultados
 
 - [Programa que resolve este TPC](main.py)  
 - [Ficheiro de Input](input.txt)  
 - [Ficheiro de Output](output.txt)  
-- [Ficheiro que junta os ficheiros de input e output para que seja claramente visivel ver qual o funcionamento do sistema](resultado.txt)

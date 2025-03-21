@@ -1,0 +1,10 @@
+CTRL + D para parar
+
+>> O valor dá: 2
+>> O valor dá: 7
+>> O valor dá: 52
+>> O valor dá: 7
+>> O valor dá: 8.5
+>> O valor dá: -5
+>> O valor dá: 54.666666666666664
+>> Goodbye
