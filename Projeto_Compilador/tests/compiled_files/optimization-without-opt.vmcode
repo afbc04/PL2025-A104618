@@ -1,0 +1,61 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : Optimization
+
+// Global Variables:
+
+ALLOC 1
+STOREG 0 //Global Variable Name : a
+
+ALLOC 1
+STOREG 1 //Global Variable Name : b
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	// -----
+	
+	PUSHI 1
+	PUSHI 4
+	PUSHI 6
+	MUL
+	ADD
+	PUSHI 7
+	PUSHI 0
+	MUL
+	SUB
+	PUSHI 26
+	ADD
+	PUSHI 5
+	MOD
+	STOREG 0
+	
+	PUSHS "Valor de a :"
+	WRITES
+	PUSHG 0
+	WRITEI
+	WRITELN
+	
+	PUSHG 0
+	PUSHI 2
+	PUSHI 3
+	MUL
+	ADD
+	STOREG 1
+	
+	PUSHS "Valor de b :"
+	WRITES
+	PUSHG 1
+	WRITEI
+	WRITELN
+	STOP
+
+// #####

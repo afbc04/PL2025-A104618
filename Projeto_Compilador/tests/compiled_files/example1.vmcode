@@ -1,0 +1,25 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : HelloWorld
+
+// Global Variables:
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	// -----
+	
+	PUSHS "Ola, Mundo!"
+	WRITES
+	WRITELN
+	STOP
+
+// #####

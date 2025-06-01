@@ -1,0 +1,81 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : SemanticErrors
+
+// Global Variables:
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	
+	PUSHI 2 // Array Length : 2
+	ALLOCN
+	STOREL 0 // Local Variable Name : a
+	
+	ALLOC 1
+	STOREL 1 //Local Variable Name : b
+	
+	ALLOC 1
+	STOREL 2 //Local Variable Name : c
+	// -----
+	
+	PUSHL 0
+	PUSHI 0
+	PUSHI 1
+	SUB
+	LOADN
+	STOREL 1
+	
+	PUSHA funcproc1
+	CALL
+	PUSHF 1.2
+	FMUL
+	STOREL 1
+	
+	PUSHI 1
+	PUSHI 0
+	FDIV
+	STOREL 1
+	STOP
+
+// #####
+
+// Function Name : func
+funcproc1:
+	// Local Variables:
+	
+	ALLOC 1
+	STOREL 0 // Return Value
+	
+	ALLOC 1
+	STOREL 1 //Local Variable Name : n
+	// -----
+	
+	PUSHI 1
+	STOREL 0
+	POP 1
+	RETURN
+// #####
+
+// Procedure Name : proc
+funcproc2:
+	// Local Variables:
+	
+	ALLOC 1
+	STOREL 0 // Return Value
+	// -----
+	
+	PUSHS "Hello world"
+	WRITES
+	WRITELN
+	POP 0
+	RETURN
+// #####

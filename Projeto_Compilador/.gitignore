@@ -1,0 +1,7 @@
+*/__pycache__
+__pycache__
+syntax/parsetab.py
+syntax/parser.out
+syntax/yacc.out
+
+./*.vmcode

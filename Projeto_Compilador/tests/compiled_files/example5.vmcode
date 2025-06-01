@@ -1,0 +1,78 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : SomaArray
+
+// Global Variables:
+
+PUSHI 5 //Array Length : 5
+ALLOCN
+STOREG 0 //Global Variable Name : numeros
+
+ALLOC 1
+STOREG 1 //Global Variable Name : i
+
+ALLOC 1
+STOREG 2 //Global Variable Name : soma
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	// -----
+	
+	PUSHI 0
+	STOREG 2
+	
+	PUSHS "Introduza 5 números inteiros:"
+	WRITES
+	WRITELN
+	
+	PUSHI 1
+	STOREG 1
+InitFor0:
+	PUSHG 1
+	PUSHI 5
+	INFEQ
+	JZ EndFor0
+	
+	PUSHG 0
+	PUSHG 1
+	PUSHI 1
+	SUB
+	READ
+	DUP 1
+	WRITES
+	ATOI
+	STOREN
+	WRITELN
+	
+	PUSHG 2
+	PUSHG 0
+	PUSHG 1
+	PUSHI 1
+	SUB
+	LOADN
+	ADD
+	STOREG 2
+	PUSHG 1
+	PUSHI 1
+	ADD
+	STOREG 1
+	JUMP InitFor0
+EndFor0:
+	
+	PUSHS "A soma dos números é: "
+	WRITES
+	PUSHG 2
+	WRITEI
+	WRITELN
+	STOP
+
+// #####

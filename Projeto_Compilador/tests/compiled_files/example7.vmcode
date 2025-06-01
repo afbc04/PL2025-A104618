@@ -1,0 +1,118 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : BinarioParaInteiro
+
+// Global Variables:
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	
+	ALLOC 1
+	STOREL 0 //Local Variable Name : bin
+	
+	ALLOC 1
+	STOREL 1 //Local Variable Name : valor
+	// -----
+	
+	PUSHS "Introduza uma string binária:"
+	WRITES
+	WRITELN
+	
+	READ
+	DUP 1
+	WRITES
+	STOREL 0
+	WRITELN
+	
+	PUSHL 0
+	PUSHA funcproc1
+	CALL
+	STOREL 1
+	
+	PUSHS "O valor inteiro correspondente é: "
+	WRITES
+	PUSHL 1
+	WRITEI
+	WRITELN
+	STOP
+
+// #####
+
+// Function Name : bintoint
+funcproc1:
+	// Local Variables:
+	
+	ALLOC 1
+	STOREL 0 // Return Value
+	
+	PUSHFP
+	LOAD -1
+	
+	ALLOC 1
+	STOREL 2 //Local Variable Name : i
+	
+	ALLOC 1
+	STOREL 3 //Local Variable Name : valor
+	
+	ALLOC 1
+	STOREL 4 //Local Variable Name : potencia
+	// -----
+	
+	PUSHI 0
+	STOREL 3
+	
+	PUSHI 1
+	STOREL 4
+	
+	PUSHL 1
+	STRLEN
+	STOREL 2
+InitFor0:
+	PUSHL 2
+	PUSHI 1
+	SUPEQ
+	JZ EndFor0
+	
+	PUSHL 1
+	PUSHL 2
+	PUSHI 1
+	SUB
+	CHARAT
+	PUSHS "1"
+	CHRCODE
+	EQUAL
+	JZ ElseBody1
+	
+	PUSHL 3
+	PUSHL 4
+	ADD
+	STOREL 3
+	JUMP IfEnd1
+ElseBody1:
+IfEnd1:
+	
+	PUSHL 4
+	PUSHI 2
+	MUL
+	STOREL 4
+	PUSHL 2
+	PUSHI 1
+	SUB
+	STOREL 2
+	JUMP InitFor0
+EndFor0:
+	
+	PUSHL 3
+	STOREL 0
+	POP 4
+	RETURN
+// #####

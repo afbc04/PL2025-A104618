@@ -1,0 +1,95 @@
+// Pascal Compiler - Processamento de Linguagens
+// --------------------------------------------
+// André Campos - a104618
+// Beatriz Peixoto - a104170
+// Sara Lopes - a104179
+// --------------------------------------------
+
+// Program Name : NumeroPrimo
+
+// Global Variables:
+
+ALLOC 1
+STOREG 0 //Global Variable Name : num
+
+ALLOC 1
+STOREG 1 //Global Variable Name : i
+
+ALLOC 1
+STOREG 2 //Global Variable Name : primo
+// -----
+
+//Main function
+funcproc0:
+
+	START
+	// Local Variables:
+	// -----
+	
+	PUSHS "Introduza um número inteiro positivo:"
+	WRITES
+	WRITELN
+	
+	READ
+	DUP 1
+	WRITES
+	ATOI
+	STOREG 0
+	WRITELN
+	
+	PUSHI 1
+	STOREG 2
+	
+	PUSHI 2
+	STOREG 1
+	
+InitWhile0:
+	PUSHG 1
+	PUSHG 0
+	PUSHI 2
+	DIV
+	INFEQ
+	PUSHG 2
+	AND
+	JZ EndWhile0
+	
+	PUSHG 0
+	PUSHG 1
+	MOD
+	PUSHI 0
+	EQUAL
+	JZ ElseBody1
+	
+	PUSHI 0
+	STOREG 2
+	JUMP IfEnd1
+ElseBody1:
+IfEnd1:
+	
+	PUSHG 1
+	PUSHI 1
+	ADD
+	STOREG 1
+	JUMP InitWhile0
+EndWhile0:
+	
+	PUSHG 2
+	JZ ElseBody2
+	
+	PUSHG 0
+	WRITEI
+	PUSHS " é um número primo"
+	WRITES
+	WRITELN
+	JUMP IfEnd2
+ElseBody2:
+	
+	PUSHG 0
+	WRITEI
+	PUSHS " não é um número primo"
+	WRITES
+	WRITELN
+IfEnd2:
+	STOP
+
+// #####
